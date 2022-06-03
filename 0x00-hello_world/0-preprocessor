@@ -1,3 +1,2 @@
 #!/bin/bash
-gcc 'SCFILE -E -o c'
 gcc SCFILE -E -o c
