@@ -1,29 +1,21 @@
 #include "main.h"
 
 /**
- *puts_half - prints every other character of a string
+ *puts2 - prints every character of a string
  *@str: A pointer to an int that will be changed
  *
- *Return: void which means our answer is correct
+ *Return: void which means it is correct
  */
 
-void puts_half(char *str)
+	void puts2(char *str)
+	{
+		int a;
 
-{
-		int i, last;
+		for (a = 0; str[a] != '\0'; a++)
+		{
+			if (a % 2 == 0)
+			_putchar (str[a]);
+		}
 
-		i = 0;
-		while (str[i] != '\0')
-			{
-			i++;
-			}
-
-			last = (i + 1) / 2;
-
-			for (i = last; str[i]; i++)
-				{
-				_putchar (str[i]);
-				}
-
-				_putchar ('\n');
+	_putchar ('\n');
 	}
