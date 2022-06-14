@@ -42,7 +42,7 @@ return (n >= '0' &&  n <= '9');
 
 		}
 
-			return (number '*'sign);
+			return (number '*' sign);
 
 
 	}
