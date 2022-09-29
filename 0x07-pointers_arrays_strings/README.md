@@ -1,2 +1,1 @@
-0x07-pointers_arrays_strings
-finally
+#0x07-pointers-arrays-strings
