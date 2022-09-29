@@ -1,32 +1,30 @@
+#include "main.h"
+
 /**
  *
- *  * _memset - sets a given amount of bytes to a value at an address
+ *  * _memset - fills memory with a constant byte,
  *
- *   *
+ *   * @s: memory area.
  *
- *    * @s: memory location to start at
+ *    * @b: constant byte.
  *
- *     * @b: character to write to memory
+ *     * @n: bytes filled.
  *
- *      * @n: number of bytes to write
+ *      * Return: the pointer to dest.
  *
- *       *
- *
- *        * Return: pointer to s
- *
- *         */
+ *       */
 
 char *_memset(char *s, char b, unsigned int n)
 
 {
 
-		char *ptr = s;
+		unsigned int i;
 
 
 
-			while (n-- > 0)
+			for (i = 0; i < n; i++)
 
-						*ptr++ = b;
+						*(s + i) =  b;
 
 
 
