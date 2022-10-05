@@ -1,24 +1,10 @@
-#ifndef MAIN_H
+#ifndef _MAIN_H_
 
-#define MAIN_H
-
-
-
-/**
- *
- *  * File: holberton.h
- *
- *   * Auth: Brennan D Baraban
- *
- *    * Desc: Header file containing prototypes for all functions
- *
- *     *       used in the 0x07-recursion directory.
- *
- *      */
+#define _MAIN_H_
 
 
 
-int _putchar(char c);
+int _putchar(char);
 
 void _puts_recursion(char *s);
 
