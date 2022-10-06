@@ -1,158 +1,151 @@
-#include "main.h"
-#include <stdio.h>
+#include "holberton.h"
 #include <stdlib.h>
 
 /**
- * main - program that multiplies two positive numbers
- *
- * @argc: argument count, must be 3
- * @argv: arguments, argv[1] and argv[2]
- *
- * Return: product of argv[1] by argv[2]
- */
+ * _atoi_digit - convert a char to integer.
+ * @x: character to convert.
+ * Return: integer.
+ **/
 
-int main(int argc, char *argv[])
+int _atoi_digit(char x)
 {
-	char *num1, *num2;
-	int i, j, k, len1, len2, len, d1, d2, d1d2, carry, *mul;
+	unsigned int res;
 
-	if (argc != 3 || !(_isnumber(argv[1])) || !(_isnumber(argv[2])))
-		_error(), exit(98);
-	num1 = argv[1], num2 = argv[2];
-	len1 = _strlen(num1), len2 = _strlen(num2), len = len1 + len2;
-	mul = _calloc(len, sizeof(int));
-	if (mul == NULL)
-		exit(98);
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		d1 = num1[i] - '0';
-		carry = 0;
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			d2 = num2[j] - '0';
-			d1d2 = d1 * d2;
-			mul[i + j + 1] += d1d2 % 10;
-			carry = d1d2 / 10;
-			if (mul[i + j + 1] > 9)
-			{
-				mul[i + j] += mul[i + j + 1] / 10;
-				mul[i + j + 1] = mul[i + j + 1] % 10;
-			}
-			mul[i + j] += carry;
-		}
-	}
-	for (k = 0; mul[k] == 0 && k < len; k++)
-		;
-	if (k == len)
-		_putchar(mul[len - 1] + '0');
-	else
-	{
-		for (i = k; i < len; i++)
-			_putchar(mul[i] + '0');
-	}
-	_putchar('\n');
-	free(mul);
+	if (x <= '9' && x >= '0')
+		res = x - '0';
+	return (res);
+}
+
+/**
+ * _isNumber - Define if a string is a number.
+ * @argv: Pointer to string.
+ * Return: success (0).
+ **/
+int _isNumber(char *argv)
+{
+	int i;
+
+	for (i = 0; argv[i]; i++)
+		if (argv[i] < 48 || argv[i] > 57)
+			return (1);
 	return (0);
 }
 
 /**
- * _isnumber - checks for digit-only (0 through 9) numbers
- *
- * @str: parameter hard-coded in main
- *
- * Return: 1 or 0
- */
+ *_calloc - allocate array of size * nmemb.
+ * @nmemb: number of elements.
+ * @size: size of element.
+ * Return: pointer to array.
+ **/
 
-int _isnumber(char *str)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	int i;
+	char *tab;
+	unsigned int i;
 
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-	}
-	return (1);
+	tab = malloc(size * nmemb);
+
+	if (tab == NULL)
+		return (NULL);
+
+	for (i = 0; i < (size * nmemb); i++)
+		tab[i] = '0';
+
+	return (tab);
 }
 
 /**
- * _error - print error
- * Return: void
- */
+ * mul_array - multiply two arrays.
+ * @a1: first array.
+ * @len1: length of array a1.
+ * @a2:  char.
+ * @a3: array for result.
+ * @lena: length of array a3.
+ * Return: pointer to array.
+ **/
 
-void _error(void)
+void *mul_array(char *a1, int len1, char a2, char *a3, int lena)
 {
-	int i;
-	char error[] = "Error";
+	int mul = 0, i, k;
 
-	for (i = 0; i < 5; i++)
-		_putchar(error[i]);
+	k = lena;
+	for (i = len1 - 1; i >= 0 ; i--)
+	{
+		mul += (a1[i] - '0') * (a2 - '0') + (a3[k] - '0');
+		a3[k] = (mul % 10) + '0';
+		mul /= 10;
+		k--;
+	}
+
+		while (mul != 0)
+		{
+			mul += a3[k] - '0';
+			a3[k] = (mul % 10) + '0';
+			mul /= 10;
+			k--;
+		}
+
+	return (a3);
+}
+/**
+ * print_array - print all digits of array.
+ * @nb: number of elements to print.
+ * @a: array of elements.
+ **/
+void print_array(char *a, int nb)
+{
+	int i = 0;
+
+	while (a[i] == '0' && (i + 1) < nb)
+	{
+		i++;
+	}
+	for (; i < nb; i++)
+	{
+		_putchar(a[i]);
+	}
 	_putchar('\n');
 }
 
 /**
- * _strlen - function that returns the length of a string
- *
- * @s: parameter defined in main
- *
- * Return: length of string
+ *main - print the multiplication of 2 numbers.
+ *@argc: array length.
+ *@argv: array.
+ *Return: 0.
  */
 
-int _strlen(char *s)
+int main(int argc, char *argv[])
 {
-	int i = 0;
+	int i, c, len1, len2, lenres;
+	char E[6] = {'E', 'r', 'r', 'o', 'r', '\n'};
+	char *tabres;
 
-	while (*s != '\0')
+	if (argc != 3 || _isNumber(argv[1]) == 1 || _isNumber(argv[2]) == 1)
 	{
-		i++;
-		s++;
+		for (i = 0; i < 6; i++)
+		{
+			_putchar(E[i]);
+		}
+		exit(98);
 	}
-	return (i);
-}
-
-/**
- * _calloc - function that allocates memory for an array, using malloc
- * @nmemb: size of the memory space to allocate in bytes
- * @size: size of type
- * Return: void pointer
- */
-
-void *_calloc(unsigned int nmemb, unsigned int size)
-{
-	void *ptr;
-
-	if (nmemb == 0 || size == 0)
-		return (NULL);
-
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
+	for (len1 = 0; argv[1][len1]; len1++)
+	;
+	for (len2 = 0; argv[2][len2]; len2++)
+	;
+	lenres = len1 + len2;
+	tabres = _calloc(lenres, sizeof(int));
+	if (tabres == NULL)
 	{
-		return (NULL);
+		free(tabres);
+		return (0);
 	}
-	_memset(ptr, 0, size * nmemb);
-	return (ptr);
-}
-
-/**
- * _memset - function that fills memory with a constant byte
- *
- * @s: parameter defined in main, pointer to memory area
- * @b: parameter defined in main, constant byte
- * @n: parameter defined in main, number of bytes to be filled
- *
- * Return: memory address of function (memory area)
- */
-
-char *_memset(char *s, char b, unsigned int n)
-{
-	unsigned int i;
-	char *tmp = s;
-
-	for (i = 0; i < n; i++)
+	for (i = len2 - 1, c = 0; i >= 0; i--)
 	{
-		*s = b;
-		s++;
+	tabres = mul_array(argv[1], len1, argv[2][i], tabres, (lenres - 1 - c));
+	c++;
 	}
-	s = tmp;
-	return (s);
+	print_array(tabres, lenres);
+	free(tabres);
+	exit(EXIT_SUCCESS);
+	return (0);
 }
